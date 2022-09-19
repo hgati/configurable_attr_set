@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Cobay_ConfigurableAttrSet>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Cobay_ConfigurableAttrSet>
+	</modules>
+</config>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Cobay_ConfigurableAttrSet>
+			<version>0.1.0</version>
+		</Cobay_ConfigurableAttrSet>
+	</modules>
+
+	<admin>
+		<routers>
+			<configurableattrset>
+				<use>admin</use>
+				<args>
+					<module>Cobay_ConfigurableAttrSet</module>
+					<frontName>configurableattrset</frontName>
+				</args>
+			</configurableattrset>		     
+		</routers>    	
+	</admin>
+	
+    <adminhtml>
+		<layout>
+			<updates>
+				<configurableattrset>
+					<file>cobay/configurableattrset.xml</file>
+				</configurableattrset>
+			</updates>
+		</layout>
+    </adminhtml>
+	
+	<global>
+		<helpers>
+			<configurableattrset>
+				<class>Cobay_ConfigurableAttrSet_Helper</class>
+			</configurableattrset>
+		</helpers>
+		<blocks>
+			<configurableattrset>
+				<class>Cobay_ConfigurableAttrSet_Block</class>
+			</configurableattrset>
+			<adminhtml>
+				<rewrite>
+					<catalog_product>Cobay_ConfigurableAttrSet_Block_Catalog_Product</catalog_product>
+				</rewrite>
+			</adminhtml>
+		</blocks>
+	</global>
+
+	<default>
+		<catalog>
+			<configurable_attributeset>
+				<sampleurl>https://docs.google.com/a/hamomo.com/spreadsheet/ccc?key=0AhTb-h2-n0X3dFAyTEk2clhnekIzYkl5RktkeDVoU2c#gid=0</sampleurl>
+			</configurable_attributeset>		
+		</catalog>
+	</default>
+	
+</config>

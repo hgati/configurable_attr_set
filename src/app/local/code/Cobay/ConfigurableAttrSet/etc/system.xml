@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+   <sections>
+        <catalog>
+            <groups>
+                <configurable_attributeset translate="label">
+                    <label>Quick AttributeSet for Configurable Product</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>650</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+						<gdocs_user translate="label">
+							<label>Google Docs UserName(email)</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</gdocs_user>                    
+						<gdocs_pwd translate="label">
+							<label>Google Docs Password</label>
+							<frontend_type>password</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</gdocs_pwd>						
+						<sampleurl translate="label">
+							<label>Google SpreadSheet Sample Url</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</sampleurl>
+					</fields>
+                </configurable_attributeset>
+            </groups>
+        </catalog>
+    </sections>
+</config>
