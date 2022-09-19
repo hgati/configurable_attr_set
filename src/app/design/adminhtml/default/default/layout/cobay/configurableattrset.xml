@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout>
+	<adminhtml_catalog_product_index>
+        <reference name="head">
+			<action method="addJs"><script>prototype/window.js</script></action>
+        	<action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+        	<action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+
+			<action method="addCss"><stylesheet>css/cobay/configurable-attrset/default.css</stylesheet></action>
+			<action method="addItem"><type>skin_js</type><name>js/cobay/configurable-attrset/default.js</name></action>
+        </reference>
+    </adminhtml_catalog_product_index>
+    
+    <configurableattributeset_index_index>
+        <reference name="root">
+            <action method="setTemplate"><template>cobay/configurableattrset/popup.phtml</template></action>
+        </reference>
+        <reference name="content">
+			<block type="configurableattrset/form" name="cobay_configurableattrset_form" as="cobay.configurableattrset.form" /> 
+        </reference>
+    </configurableattributeset_index_index>
+</layout>

@@ -3,3 +3,10 @@
 src/app/code/local/Cobay/ConfigurableAttrSet            app/code/local/Cobay/ConfigurableAttrSet
 # app/etc
 src/app/etc/modules/Cobay_ConfigurableAttrSet.xml            app/etc/modules/Cobay_ConfigurableAttrSet.xml
+# app/design
+src/app/design/adminhtml/default/default/layout/cobay/configurableattrset.xml            app/design/adminhtml/default/default/layout/cobay/configurableattrset.xml
+src/app/design/adminhtml/default/default/template/cobay/configurableattrset/popup.phtml            app/design/adminhtml/default/default/template/cobay/configurableattrset/popup.phtml
+src/app/design/adminhtml/default/default/template/cobay/configurableattrset/form.phtml            app/design/adminhtml/default/default/template/cobay/configurableattrset/form.phtml
+# skin
+src/skin/adminhtml/default/default/js/cobay/configurable-attrset/default.js            skin/adminhtml/default/default/js/cobay/configurable-attrset/default.js
+src/skin/adminhtml/default/default/css/cobay/configurable-attrset/default.css            skin/adminhtml/default/default/css/cobay/configurable-attrset/default.css

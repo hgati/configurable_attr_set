@@ -1,0 +1,146 @@
+<form id="edit_form" name="edit_form" action="<?php echo $this->getUrl('configurableattrset/index/create')?>" method="POST">
+<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+
+<div class="fieldset fieldset-wide" id="page_layout_fieldset">
+	<div class="hor-scroll">
+		<div style="background:#f3f3f3; padding-top:10px; padding-bottom:10px; border:1px darkgray dashed;">
+		<table cellspacing="0" class="form-list">
+		<tbody>
+		<tr>
+			<td class="label" align="right" style="padding-right:5px; width:170px;"><?php echo Mage::helper('configurableattrset')->__('ATTRIBUTE SET inherited')?></td>
+			<td class="value" style="width:100%">	
+				<select id="attr_set_inherited" name="attr_set_inherited" class="select required-entry" onchange="chgAttrSet(this)">
+				<option value=""></option>
+				<?php $entityTypeId = Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId();?>
+				<?php $attributeSetCollection = Mage::getModel('eav/entity_attribute_set')->getCollection()->setEntityTypeFilter($entityTypeId);?>
+				<?php //$attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_set_collection')->load();?>
+				<?php foreach ($attributeSetCollection as $attributeSet):?>
+					<option value="<?php echo $attributeSet->getAttributeSetId()?>"><?php echo $attributeSet->getAttributeSetName()?></option>
+				<?php endforeach;?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="label" align="right" style="padding-right:5px; width:170px;"><?php echo Mage::helper('configurableattrset')->__('ATTRIBUTE SET NAME')?></td>
+			<td class="value" style="width:100%">
+				<input type="text" name="attr_set_name" class="input-text required-entry" value="<?php echo $this->my_form['attr_set_name']?>" />
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		</div>
+		
+		<div style="margin-top:20px;">
+		<table cellspacing="0" class="form-list">
+		<tbody>
+		<tr>
+			<td class="label" align="right" style="padding-right:5px; width:170px;"><?php echo Mage::helper('configurableattrset')->__('ATTRIBUTE SET GROUP NAME')?></td>
+			<td class="value" style="width:100%">
+				<select id="attr_set_group_name" name="attr_set_group_name" class="select required-entry">
+				<option value=""></option>
+				<?php $attributeSetCollection = Mage::getModel('eav/entity_attribute_group')->getCollection()->addFieldToFilter('attribute_set_id', $this->my_form['attr_set_inherited'])->setOrder('sort_order','asc')->load();?>
+				<?php foreach ($attributeSetCollection as $id=>$attributeGroup):?>
+					<?php if($attributeGroup->getAttributeGroupName()==$this->my_form['attr_set_group_name']):?>
+						<?php $sel="selected";?>
+					<?php else:?>
+						<?php $sel="";?>
+					<?php endif;?>
+					<option value="<?php echo $attributeGroup->getAttributeGroupName()?>" <?php echo $sel;?>><?php echo $attributeGroup->getAttributeGroupName()?></option>
+				<?php endforeach;?>
+				</select>
+			</td>
+		</tr>		
+		<tr>
+			<td class="label" align="right" style="padding-right:5px; width:170px;"><?php echo Mage::helper('configurableattrset')->__('ATTRIBUTE CODE')?></td>
+			<td class="value" style="width:100%">
+				<input type="text" name="attr_code" class="input-text required-entry validate-code" value="<?php echo $this->my_form['attr_code']?>" />
+			</td>
+		</tr>
+		<tr>
+			<td class="label" align="right" style="padding-right:5px; width:170px;"></td>
+			<td class="value" style="width:100%">
+				<button type="button" class="scalable" onclick="viewSampleDataFormat()">
+				<span><?php echo $this->__('View LABEL&OPTIONS Sample Data');?></span>
+				</button>
+				<button type="button" class="scalable" onclick="viewStoreCodes()">
+				<span><?php echo $this->__('View My Store Codes');?></span>
+				</button>
+			</td>
+		</tr>
+		<?php $store_codes = "admin\t";?>
+		<?php $allStores = Mage::app()->getStores();?>
+		<?php foreach ($allStores as $_eachStoreId => $val):?> 
+			<?php $_storeCode = Mage::app()->getStore($_eachStoreId)->getCode();?>
+			<?php $store_codes .= "$_storeCode\t";?>
+		<?php endforeach;?>
+		<tr id="oStoreCodes" style="display:none">
+			<td class="label" align="right" style="padding-right:5px; width:170px;"></td>
+			<td class="value" style="width:100%">
+				<div style="background:#f3f3f3; color:black; border:1px darkgray dashed; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;">
+				<?php echo $store_codes?>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="label" align="right" align="right" style="padding-right:5px; width:170px;">
+			<?php echo Mage::helper('configurableattrset')->__('LABEL & OPTIONS')?><br/>
+			<span style="font-size:8pt; font-weight:bolder; color:black;">
+			<?php echo Mage::helper('configurableattrset')->__('(Copy&Paste)')?>
+			</span>
+			</td>
+			<td class="value" style="width:100%">
+				<textarea id="data" name="data" class="textarea required-entry" style="width:100%; height:200px;"><?php echo $this->my_form['data']?></textarea>            
+			</td>
+		</tr>
+		<tr><td style="height:10px;" colspan="2"></td></tr>
+		<tr>
+			<td align="center" colspan="2">
+				<button type="button" class="scalable add" style="height:30px; width:140px;" 
+				onclick="editForm.submit()">
+				<span><?php echo Mage::helper('configurableattrset')->__('Quick Creation');?></span>
+				</button>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+
+</form>
+<script type="text/javascript">
+var editForm = new varienForm('edit_form');
+
+function viewSampleDataFormat(){
+	var gdocs_user	= "<?php echo $this->gdocs_user;?>";
+	var gdocs_pwd	= "<?php echo $this->gdocs_pwd;?>";
+	var sampleurl	= "<?php echo $this->gdocs_sampleurl;?>";
+	var gdocs_key	= "<?php echo $this->gdocs_key;?>";
+	if(sampleurl==''){
+		alert("Please specify the Sample Docs Url\n\nsystem > configuration > catalog > Quick AttributeSet for Configurable Product");
+		return;
+	}
+	popWin(sampleurl);
+}
+function viewStoreCodes(){
+	if(document.getElementById('oStoreCodes').style.display=='none')
+		document.getElementById('oStoreCodes').style.display='';
+	else
+		document.getElementById('oStoreCodes').style.display='none';
+}
+function chgAttrSet(_this){
+	//document.getElementById('attr_set_group_name')
+	var xmlhttp = new XMLHttpRequest();
+	var url = "<?php echo $this->getUrl('configurableattrset/index/ajax')?>";
+	var params = "attr_set_id="+_this.value;
+	xmlhttp.open("GET", url+"?"+params, true);
+	xmlhttp.onreadystatechange = function() {
+		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			document.getElementById('attr_set_group_name').innerHTML = xmlhttp.responseText;
+		}
+	}
+	xmlhttp.send(null);
+}
+
+document.getElementById('attr_set_inherited').value="<?php echo $this->my_form['attr_set_inherited']?>";
+</script>
